@@ -1,13 +1,9 @@
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 
-export const Container = ({ children }: { children: React.ReactNode }) => {
+export const Container = ({ children, styles }: { children: React.ReactNode; styles?: string }) => {
   return (
     <SafeAreaProvider>
-      <SafeAreaView className={styles.container}>{children}</SafeAreaView>
+      <SafeAreaView className={`bg-[#1b1b1d] ${styles}`}>{children}</SafeAreaView>
     </SafeAreaProvider>
   );
-};
-
-const styles = {
-  container: 'flex flex-1 m-6',
 };
