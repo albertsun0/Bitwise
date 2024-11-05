@@ -22,7 +22,7 @@ export const ScreenContent = ({ title, path, children }: ScreenContentProps) => 
   return (
     <View className="h-full bg-black text-white">
       <Drawer
-        drawerStyle={{ overflow: 'hidden', backgroundColor: '#1b1b1d' }}
+        drawerStyle={{ overflow: 'hidden' }}
         open={open}
         onOpen={() => setOpen(true)}
         onClose={() => setOpen(false)}
@@ -34,7 +34,7 @@ export const ScreenContent = ({ title, path, children }: ScreenContentProps) => 
             <Container styles={`${open ? 'border-r border-[#363433]' : ''} p-4 gap-8`}>
               <>
                 <Text className="text-3xl font-bold text-white">Bitwise</Text>
-                <View className="h-full gap-2 bg-[#1b1b1d]">
+                <View className="h-full gap-2 bg-black">
                   {screens.map((screen: screensType) => (
                     <TouchableOpacity
                       key={screen}
@@ -55,7 +55,7 @@ export const ScreenContent = ({ title, path, children }: ScreenContentProps) => 
           {currentScreen === 'Read' && <MainContent path={path} />}
           {currentScreen === 'History' && <History />}
           <TouchableOpacity
-            className={`absolute top-0 ml-8 mt-20 ${styles.border} bg-[#1b1b1d] p-2`}
+            className={`absolute top-0 ml-8 mt-20 ${styles.border} bg-black p-2`}
             onPress={() => setOpen(true)}>
             <Ionicons name="menu" size={32} color="white" />
           </TouchableOpacity>
