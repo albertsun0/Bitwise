@@ -1,6 +1,7 @@
 import { Text, Button, View, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
 import { MainContent } from './reader/MainContent';
+import { Settings } from './settings/SettingsPage';
 import { History } from './history/History';
 import { Container } from './Container';
 import { Drawer } from 'react-native-drawer-layout';
@@ -54,6 +55,7 @@ export const ScreenContent = ({ title, path, children }: ScreenContentProps) => 
         <Container>
           {currentScreen === 'Read' && <MainContent path={path} />}
           {currentScreen === 'History' && <History />}
+          {currentScreen === 'Options' && <Settings />}
           <TouchableOpacity
             className={`absolute top-0 ml-8 mt-20 ${styles.border} bg-black p-2`}
             onPress={() => setOpen(true)}>

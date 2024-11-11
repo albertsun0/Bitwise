@@ -1,15 +1,17 @@
 import { Text, View, Button, ScrollView } from 'react-native';
 import { Chip } from '../ui/Chip';
 import { styles } from '../ui/styles';
+import { RoadMapContext } from 'components/hooks/RoadMapProvider';
+import { useContext } from 'react';
+
 export const History = () => {
+  const { roadMap, currentNodeId } = useContext(RoadMapContext);
+
   return (
-    <ScrollView className="mt-32 flex h-full flex-col px-8 text-white">
-      <Text className="mb-6 text-5xl font-bold text-gray-100 ">History</Text>
-      {/* 
-      <View className="mb-12 flex flex-row flex-wrap gap-4">
-        <Chip title="Chip 1" />
-        <Chip title="Chip 1" />
-      </View> */}
+    <ScrollView className=" flex h-full flex-col px-8 text-white">
+      <Text className="mb-6 mt-32 text-5xl font-bold text-gray-100">History</Text>
+      <Text className="text-white">{currentNodeId}</Text>
+      <Text className="text-white">{JSON.stringify(roadMap, null, 2)}</Text>
     </ScrollView>
   );
 };
