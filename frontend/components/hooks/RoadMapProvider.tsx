@@ -11,7 +11,18 @@ import {
 import _ from 'lodash';
 import uuid from 'react-native-uuid';
 
-export const RoadMapContext = createContext(() => {});
+type RoadMapContextType = {
+  roadMap: RoadMap | null;
+  currentNodeId: string;
+  loading: boolean;
+  setNode: (value: RoadMapNode) => void;
+  fetchData: () => void;
+  getNextNode: () => void;
+  addChildrenNodes: (nodes: string[]) => void;
+};
+
+export const RoadMapContext = createContext<RoadMapContextType | null>(null);
+null;
 
 export const RoadMapProvider = ({ children }: { children: React.ReactNode }) => {
   const [roadMap, setRoadMap] = useState<RoadMap | null>(null);
@@ -29,7 +40,7 @@ export const RoadMapProvider = ({ children }: { children: React.ReactNode }) => 
   };
 
   useEffect(() => {
-    console.log('use effect');
+    console.log('use  effect');
     updateFromStorage();
   }, []);
 
@@ -54,12 +65,21 @@ export const RoadMapProvider = ({ children }: { children: React.ReactNode }) => 
     if (!currentNode.content) {
       // fetch content
       console.log('fetching content');
-      currentNode.content = {
-        title: currentNode.title,
-        content: 'content',
-      };
+      try {
+        const response = await fetch(`http://10.0.0.57:8000/generate/${currentNode.title}`);
+        console.log(response);
+        const x = await response.json();
 
-      setNode(currentNode);
+        currentNode.content = {
+          title: x.article_title,
+          content: x.article_body,
+          related: x.related_topics,
+        };
+
+        setNode(currentNode);
+      } catch (error) {
+        console.log('Error fetching content', error);
+      }
     }
     setLoading(false);
   };
@@ -67,6 +87,12 @@ export const RoadMapProvider = ({ children }: { children: React.ReactNode }) => 
   useEffect(() => {
     fetchData();
   }, [currentNodeId]);
+
+  useEffect(() => {
+    if (!roadMap?.nodes[currentNodeId].content) {
+      fetchData();
+    }
+  }, []);
 
   const getNextNode = async () => {
     const nextNode = roadMap?.nodes[currentNodeId]?.next;

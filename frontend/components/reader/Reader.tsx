@@ -11,17 +11,15 @@ type ReaderProps = {
 
 export const Reader = ({ title, text, tags }: ReaderProps) => {
   return (
-    <ScrollView className="flex flex-col text-white">
-      <View className="py-32">
-        <Text className="mb-6 text-5xl font-bold text-gray-100 ">{title}</Text>
+    <View className="pb-4 pt-32">
+      <Text className="mb-6 text-5xl font-bold text-gray-100 ">{title}</Text>
 
-        <View className="mb-12 flex flex-row flex-wrap gap-4">
-          <Chip title="Chip 1" />
-          <Chip title="Chip 1" />
-        </View>
-        <Markdown style={MarkdownStyles}>{text}</Markdown>
+      <View className="mb-12 flex flex-row flex-wrap gap-4">
+        <Chip title="Chip 1" />
+        <Chip title="Chip 1" />
       </View>
-    </ScrollView>
+      <Markdown style={MarkdownStyles}>{text}</Markdown>
+    </View>
   );
 };
 
